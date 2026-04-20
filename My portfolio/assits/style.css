@@ -53,7 +53,10 @@ nav a:hover, nav a.active {
     color: #c4ba84;
 }
 
-/* Hero Section */
+/* check box */
+
+
+/*  Section */
 section {
     min-height: 100vh;
     padding: 10rem 9% 2rem;
@@ -200,14 +203,107 @@ section {
 footer {
     background-color: #333;
     color: #333;
-    padding: 20px;
+    padding: 3rem;
     text-align: center; /* Centers the text */
+    font-size: 1.4rem
 }
 
 /* Mobile Responsive */
+/* --- KEYFRAMES --- */
+
+/* Slides content in from the left */
+@keyframes slideRight {
+    0% { transform: translateX(-100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Slides content in from the right */
+@keyframes slideLeft {
+    0% { transform: translateX(100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* Makes the profile picture float up and down */
+@keyframes floatImage {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-2rem); }
+    100% { transform: translateY(0); }
+}
+
+/* Animate skill bars filling up */
+@keyframes fillBar {
+    0% { width: 0; }
+}
+
+/* Apply animations to elements */
+.home-content { 
+    animation: slideRight 1s ease forwards;
+}
+.home-img img { 
+    animation: slideLeft 1s ease forwards, floatImage 4s ease-in-out infinite; animation-delay: 0s, 1s; 
+}
+.skill-per { 
+    animation: fillBar 2s cubic-bezier(1, 0, 0.5, 1) forwards; 
+}
+
+/* --- menu icons--- */
+.menu-checkbox {
+     display: none;
+     }
+.menu-icon {
+    font-size: 3.6rem;
+    color: #c4ba84;
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+}
+
+/* --- MEDIA(Responsive Design) --- */
+
 @media (max-width: 768px) {
+    /* Adjust root font size for mobile */
+    html { font-size: 50%; }
+
+    .menu-icon { display: block; }
+
     header { padding: 2rem 4%; }
-    .home { flex-direction: column; text-align: center; }
-    .home-img img { width: 60vw; }
-    nav { display: none; } /* Add JS to toggle this */
+
+    /* Hide nav menu and move it off-screen */
+    nav {
+        position: absolute;
+        top: 100%; left: 0; width: 100%;
+        padding: 1rem 4%;
+        background: rgba(51, 51, 51, 0.98);
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-150%);
+        transition: 0.4s ease;
+        z-index: -1;
+    }
+
+    /* When checkbox is clicked, slide nav down */
+    .menu-checkbox:checked ~ nav {
+        transform: translateY(0);
+    }
+
+    nav a {
+        display: block;
+        margin: 1.5rem 0;
+        font-size: 2rem;
+    }
+
+    .home {
+        flex-direction: column-reverse;
+        text-align: center;
+        padding-top: 15rem;
+    }
+
+    .home-img img { width: 60vw; margin-top: 4rem; }
+    
+    .home-content h1 { font-size: 5rem; }
+    .projects-container { grid-template-columns: 1fr; }
+}
+
+/* Fix for footer text color so it's visible */
+footer p {
+    color: #c4ba84;
 }
